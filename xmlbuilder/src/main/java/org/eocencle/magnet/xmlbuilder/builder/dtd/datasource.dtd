@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT table (fields)>
+    <!ATTLIST table
+            src CDATA #REQUIRED
+            format (TextFile | MapFile | RCFile | ORCFile | ParquetFile | AvroFile | JsonFile) "TextFile"
+            separator CDATA #IMPLIED "\001">
+    <!ELEMENT fields (field+)>
+        <!ELEMENT field EMPTY>
+            <!ATTLIST field
+                    name CDATA #REQUIRED
+                    type (String | Boolean | DateTime | Double | Float | Byte | Integer | Long | Short | Decimal) "String"
+                    precision CDATA #IMPLIED
+                    format CDATA #IMPLIED "yyyy-MM-dd HH:mm:ss">

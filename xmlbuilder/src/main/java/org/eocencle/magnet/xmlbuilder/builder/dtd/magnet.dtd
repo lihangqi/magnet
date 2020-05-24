@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT project (parameter?, fragment?, datasource, workflow)>
+    <!ELEMENT parameter (variable*)>
+        <!ELEMENT variable (list | map)?>
+            <!ATTLIST variable
+                    key CDATA #REQUIRED
+                    value CDATA #IMPLIED>
+            <!ELEMENT list (value*)>
+                <!ELEMENT value (#PCDATA)>
+            <!ELEMENT map (entry*)>
+                <!ELEMENT entry EMPTY>
+                <!ATTLIST entry
+                        key CDATA #REQUIRED
+                        value CDATA #REQUIRED>
+    <!ELEMENT fragment (script+)>
+        <!ELEMENT script (#PCDATA | trim | where | foreach | choose | if)*>
+            <!ATTLIST script id CDATA #REQUIRED>
+    <!ELEMENT datasource (table | stream)*>
+        <!ELEMENT table (config?, fields?)>
+            <!ATTLIST table
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    style (default | file | http | database) "default"
+                    src CDATA #IMPLIED
+                    ref CDATA #IMPLIED
+                    format (TextFile | MapFile | RCFile | ORCFile | ParquetFile | AvroFile | JsonFile) "TextFile"
+                    separator CDATA #IMPLIED "\001">
+            <!ELEMENT config (variable*)>
+            <!ELEMENT fields (field+)>
+                <!ELEMENT field EMPTY>
+                    <!ATTLIST field
+                            name CDATA #REQUIRED
+                            type (String | Boolean | DateTime | Double | Float | Byte | Integer | Long | Short | Decimal) "String"
+                            precision CDATA #IMPLIED
+                            format CDATA #IMPLIED "yyyy-MM-dd HH:mm:ss">
+        <!ELEMENT stream (config, fields)>
+            <!ATTLIST stream
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    topics CDATA #REQUIRED
+                    format (TextFile | MapFile | RCFile | ORCFile | ParquetFile | AvroFile | JsonFile) "TextFile"
+                    separator CDATA #IMPLIED "\001">
+    <!ELEMENT workflow (sql | filter | distinct | union | join | output | branch | order | rownum | group |
+            schema | valueMappers | splitFieldToRows | stringCuts | addFields | addSequence)*>
+        <!ELEMENT sql (#PCDATA | include | trim | where | foreach | choose | if)*>
+            <!ATTLIST sql
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED>
+            <!ELEMENT include (property+)?>
+                <!ATTLIST include ref CDATA #REQUIRED>
+                    <!ELEMENT property EMPTY>
+                        <!ATTLIST property
+                                name CDATA #REQUIRED
+                                value CDATA #REQUIRED>
+            <!ELEMENT trim (#PCDATA | include | trim | where | foreach | choose | if)*>
+                <!ATTLIST trim
+                        prefix CDATA #IMPLIED
+                        prefixOverrides CDATA #IMPLIED
+                        suffix CDATA #IMPLIED
+                        suffixOverrides CDATA #IMPLIED>
+            <!ELEMENT where (#PCDATA | include | trim | where | foreach | choose | if)*>
+            <!ELEMENT foreach (#PCDATA | include | trim | where | foreach | choose | if)*>
+                <!ATTLIST foreach
+                        collection CDATA #REQUIRED
+                        item CDATA #IMPLIED
+                        index CDATA #IMPLIED
+                        open CDATA #IMPLIED
+                        close CDATA #IMPLIED
+                        separator CDATA #IMPLIED>
+            <!ELEMENT choose (when* , otherwise?)>
+                <!ELEMENT when (#PCDATA | include | trim | where | foreach | choose | if)*>
+                    <!ATTLIST when test CDATA #REQUIRED>
+                <!ELEMENT otherwise (#PCDATA | include | trim | where | foreach | choose | if)*>
+            <!ELEMENT if (#PCDATA | include | trim | where | foreach | choose | if)*>
+                <!ATTLIST if test CDATA #REQUIRED>
+        <!ELEMENT filter (conditions)>
+            <!ATTLIST filter
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED>
+            <!ELEMENT conditions (andIsNull | andIsNotNull | andEqualTo | andNotEqualTo | andGreaterThan |
+                    andGreaterThanOrEqualTo | andLessThan | andLessThanOrEqualTo | andIn | andBetween |
+                    andPrefix | andSuffix | andContain | orIsNull | orIsNotNull | orEqualTo | orNotEqualTo |
+                    orGreaterThan | orGreaterThanOrEqualTo | orLessThan | orLessThanOrEqualTo | orIn | orBetween |
+                    orPrefix | orSuffix | orContain)*>
+                <!ELEMENT andIsNull EMPTY>
+                    <!ATTLIST andIsNull
+                            field CDATA #REQUIRED>
+                <!ELEMENT andIsNotNull EMPTY>
+                    <!ATTLIST andIsNotNull
+                            field CDATA #REQUIRED>
+                <!ELEMENT andEqualTo EMPTY>
+                    <!ATTLIST andEqualTo
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT andNotEqualTo EMPTY>
+                    <!ATTLIST andNotEqualTo
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT andGreaterThan EMPTY>
+                    <!ATTLIST andGreaterThan
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT andGreaterThanOrEqualTo EMPTY>
+                    <!ATTLIST andGreaterThanOrEqualTo
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT andLessThan EMPTY>
+                    <!ATTLIST andLessThan
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT andLessThanOrEqualTo EMPTY>
+                    <!ATTLIST andLessThanOrEqualTo
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT andIn EMPTY>
+                    <!ATTLIST andIn
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT andBetween EMPTY>
+                    <!ATTLIST andBetween
+                            field CDATA #REQUIRED
+                            start CDATA #REQUIRED
+                            end CDATA #REQUIRED>
+                <!ELEMENT andPrefix EMPTY>
+                    <!ATTLIST andPrefix
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT andSuffix EMPTY>
+                    <!ATTLIST andSuffix
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT andContain EMPTY>
+                    <!ATTLIST andContain
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT orIsNull EMPTY>
+                    <!ATTLIST orIsNull
+                            field CDATA #REQUIRED>
+                <!ELEMENT orIsNotNull EMPTY>
+                    <!ATTLIST orIsNotNull
+                            field CDATA #REQUIRED>
+                <!ELEMENT orEqualTo EMPTY>
+                    <!ATTLIST orEqualTo
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT orNotEqualTo EMPTY>
+                    <!ATTLIST orNotEqualTo
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT orGreaterThan EMPTY>
+                    <!ATTLIST orGreaterThan
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT orGreaterThanOrEqualTo EMPTY>
+                    <!ATTLIST orGreaterThanOrEqualTo
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT orLessThan EMPTY>
+                    <!ATTLIST orLessThan
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT orLessThanOrEqualTo EMPTY>
+                    <!ATTLIST orLessThanOrEqualTo
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT orIn EMPTY>
+                    <!ATTLIST orIn
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT orBetween EMPTY>
+                    <!ATTLIST orBetween
+                            field CDATA #REQUIRED
+                            start CDATA #REQUIRED
+                            end CDATA #REQUIRED>
+                <!ELEMENT orPrefix EMPTY>
+                    <!ATTLIST orPrefix
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT orSuffix EMPTY>
+                    <!ATTLIST orSuffix
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+                <!ELEMENT orContain EMPTY>
+                    <!ATTLIST orContain
+                            field CDATA #REQUIRED
+                            value CDATA #REQUIRED>
+        <!ELEMENT distinct (distinctField)*>
+            <!ATTLIST distinct
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED
+                    cntField CDATA #IMPLIED>
+            <!ELEMENT distinctField EMPTY>
+                <!ATTLIST distinctField
+                        field CDATA #REQUIRED
+                        ignoreCase CDATA (true | false) "false">
+        <!ELEMENT union EMPTY>
+            <!ATTLIST union
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    refs CDATA #REQUIRED>
+        <!ELEMENT join (on)>
+            <!ATTLIST join
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    type (inner | outer | left_outer | right_outer | leftsemi) "inner"
+                    leftRef CDATA #REQUIRED
+                    rightRef CDATA #REQUIRED>
+            <!ELEMENT on (andEqualTo | orEqualTo)+>
+        <!ELEMENT output (config*)>
+            <!ATTLIST output
+                    id CDATA #REQUIRED
+                    ref CDATA #IMPLIED
+                    style (file | branch | email | console | database | kafka | sample) "file"
+                    target CDATA #IMPLIED
+                    type (create | override) "create"
+                    compress (None | Snappy | Default | Gzip | BZip2 | Lz4) "None"
+                    separator CDATA #IMPLIED "\001">
+        <!ELEMENT branch (datasets)>
+            <!ATTLIST branch
+                    id CDATA #REQUIRED
+                    src CDATA #REQUIRED>
+            <!ELEMENT datasets (dataset+)>
+                <!ELEMENT dataset EMPTY>
+                    <!ATTLIST dataset
+                            id CDATA #REQUIRED
+                            alias CDATA #IMPLIED>
+        <!ELEMENT order EMPTY>
+            <!ATTLIST order
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED
+                    field CDATA #REQUIRED>
+        <!ELEMENT rownum EMPTY>
+            <!ATTLIST rownum
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED
+                    field CDATA #IMPLIED "rownum">
+        <!ELEMENT group EMPTY>
+            <!ATTLIST group
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED
+                    field CDATA #REQUIRED
+                    order CDATA #IMPLIED
+                    rownum CDATA #IMPLIED
+                    streamState (none | state | window) "none">
+        <!ELEMENT schema EMPTY>
+            <!ATTLIST schema
+                    id CDATA #REQUIRED
+                    ref CDATA #IMPLIED>
+        <!ELEMENT valueMappers (valueMapper)+>
+            <!ATTLIST valueMappers
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED>
+            <!ELEMENT valueMapper (mapper)+>
+                <!ATTLIST valueMapper
+                        field CDATA #REQUIRED
+                        tagField CDATA #IMPLIED
+                        nonMatch CDATA #IMPLIED>
+                <!ELEMENT mapper EMPTY>
+                    <!ATTLIST mapper
+                            source CDATA #REQUIRED
+                            target CDATA #REQUIRED>
+        <!ELEMENT splitFieldToRows EMPTY>
+            <!ATTLIST splitFieldToRows
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED
+                    field CDATA #REQUIRED
+                    separator CDATA #REQUIRED
+                    isRegex (true | false) "false"
+                    tagField CDATA #REQUIRED
+                    rowNumField CDATA #IMPLIED>
+        <!ELEMENT stringCuts (stringCut)+>
+            <!ATTLIST stringCuts
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED>
+            <!ELEMENT stringCut EMPTY>
+                <!ATTLIST stringCut
+                        field CDATA #REQUIRED
+                        tagField CDATA #REQUIRED
+                        start CDATA #IMPLIED
+                        end CDATA #IMPLIED>
+        <!ELEMENT addFields (addField)+>
+            <!ATTLIST addFields
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED>
+            <!ELEMENT addField EMPTY>
+                <!ATTLIST addField
+                        name CDATA #REQUIRED
+                        value CDATA #IMPLIED
+                        type (String | Boolean | DateTime | Double | Float | Byte | Integer | Long | Short | Decimal) "String"
+                        precision CDATA #IMPLIED
+                        format CDATA #IMPLIED "yyyy-MM-dd HH:mm:ss">
+        <!ELEMENT addSequence EMPTY>
+            <!ATTLIST addSequence
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED
+                    tagField CDATA #REQUIRED
+                    init CDATA #IMPLIED
+                    step CDATA #IMPLIED>
