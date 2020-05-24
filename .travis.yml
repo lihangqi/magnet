@@ -13,6 +13,3 @@ script:
   - mvn test -B
   # Build
   - mvn clean package
-
-after_success:
-  - mvn clean test jacoco:report coveralls:report
