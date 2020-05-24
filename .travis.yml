@@ -1,0 +1,18 @@
+language: java
+sudo: false # faster builds
+
+jdk:
+  - openjdk8
+
+branches: # build only on these branches
+  only:
+    - master
+
+script:
+  # Test
+  - mvn test -B
+  # Build
+  - mvn clean package
+
+after_success:
+  - mvn clean test jacoco:report coveralls:report
