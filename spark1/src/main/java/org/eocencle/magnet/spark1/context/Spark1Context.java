@@ -5,7 +5,6 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SQLContext;
 import org.apache.spark.streaming.Durations;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
-import org.eocencle.magnet.core.component.wrapper.WorkStageComponentWrapper;
 import org.eocencle.magnet.core.context.Context;
 import org.eocencle.magnet.core.exception.UnsupportedException;
 import org.eocencle.magnet.core.util.CoreTag;

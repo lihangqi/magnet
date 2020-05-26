@@ -4,11 +4,9 @@ import kafka.common.TopicAndPartition;
 import kafka.message.MessageAndMetadata;
 import kafka.serializer.StringDecoder;
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.function.Function;
 import org.apache.spark.sql.DataFrame;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
-import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.kafka.KafkaCluster;
@@ -17,14 +15,12 @@ import org.eocencle.magnet.core.component.*;
 import org.eocencle.magnet.core.context.ComponentFactory;
 import org.eocencle.magnet.core.context.Context;
 import org.eocencle.magnet.core.exception.IgnoreException;
-import org.eocencle.magnet.core.mapping.InfoParam;
 import org.eocencle.magnet.core.util.CoreTag;
 import org.eocencle.magnet.core.util.StrictMap;
 import org.eocencle.magnet.spark1.component.handler.KafkaOffsetManager;
 import org.eocencle.magnet.spark1.util.SparkUtil;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -66,10 +62,8 @@ public class SparkStreamWorkStage extends StreamWorkStage implements Serializabl
         kafkaConfig.put("enable.auto.commit", "false", true);
 
         // 获取offset信息
-        Map<TopicAndPartition, Long> offset = null;
-
-            offset = this.kafkaOffsetManager.getOffset(kafkaCluster, group, this.streamInfo.getTopics());
-
+        Map<TopicAndPartition, Long> offset =
+            this.kafkaOffsetManager.getOffset(kafkaCluster, group, this.streamInfo.getTopics());
 
         this.getParent().putParam(CoreTag.TASK_EXCEPTION_PRINT_OFFSET, offset);
 
