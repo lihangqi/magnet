@@ -5,7 +5,7 @@ import org.eocencle.magnet.core.util.StrictMap;
 import org.eocencle.magnet.xmlbuilder.parsing.XNode;
 
 /**
- * ML项目配置类
+ * XML项目配置类
  * @author: huan
  * @Date: 2020-04-15
  * @Description:
