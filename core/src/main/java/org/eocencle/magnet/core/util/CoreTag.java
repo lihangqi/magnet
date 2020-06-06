@@ -115,6 +115,7 @@ public class CoreTag {
     public static final String MAGNET_TASK_EXCEPTION_BREAK  = "_TaskExceptionBreak";
     public static final String MAGNET_STREAM_CHECK_POINT    = "_StreamCheckPoint";
     public static final String MAGNET_STREAM_STATE          = "_StreamState";
+    public static final String MAGNET_EXTEND_REGISTER       = "_ExtendRegister";
 
     // 环境模式
     public static final String ENV_MODE_LOCAL       = "Local";

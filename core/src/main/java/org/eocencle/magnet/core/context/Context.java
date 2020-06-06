@@ -20,6 +20,8 @@ public abstract class Context {
     private Integer duration;
     // SQL引擎
     private String sqlEngine;
+    // 扩展注册
+    private String extendRegister;
 
     /**
      * 初始化环境
@@ -36,6 +38,9 @@ public abstract class Context {
         this.processMode = params.get(CoreTag.MAGNET_PROCESS_MODE).toString();
         this.duration = Integer.parseInt(params.get(CoreTag.MAGNET_DURATION).toString());
         this.sqlEngine = params.get(CoreTag.MAGNET_SQL_ENGINE).toString();
+        if (params.containsKey(CoreTag.MAGNET_EXTEND_REGISTER)) {
+            this.extendRegister = params.get(CoreTag.MAGNET_EXTEND_REGISTER).toString();
+        }
     }
 
     /**
@@ -131,5 +136,13 @@ public abstract class Context {
 
     public void setSqlEngine(String sqlEngine) {
         this.sqlEngine = sqlEngine;
+    }
+
+    public String getExtendRegister() {
+        return extendRegister;
+    }
+
+    public void setExtendRegister(String extendRegister) {
+        this.extendRegister = extendRegister;
     }
 }

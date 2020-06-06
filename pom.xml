@@ -17,6 +17,7 @@
         <module>spark2</module>
         <module>flink1</module>
         <module>jsonbuilder</module>
+        <module>extend</module>
     </modules>
 
     <name>magnet</name>
