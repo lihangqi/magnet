@@ -5,6 +5,8 @@ import org.eocencle.magnet.core.component.wrapper.WrapperRegister;
 import org.eocencle.magnet.core.context.ComponentFactory;
 import org.eocencle.magnet.core.context.Context;
 import org.eocencle.magnet.core.mapping.*;
+import org.eocencle.magnet.flink1.component.FlinkWorkStageResult;
+import org.eocencle.magnet.flink1.component.wrapper.FlinkWrapperRegister;
 
 /**
  * Flink1环境工厂类
@@ -13,9 +15,29 @@ import org.eocencle.magnet.core.mapping.*;
  * @Description:
  */
 public class Flink1ComponentFactory implements ComponentFactory {
+
+    private static Flink1ComponentFactory FACTORY = new Flink1ComponentFactory();
+
+    private Flink1ComponentFactory() {
+
+    }
+
+    /**
+     * 单例获取工厂实例
+     * @Author huan
+     * @Date 2020-06-09
+     * @Param []
+     * @Return org.eocencle.magnet.flink1.context.Flink1ComponentFactory
+     * @Exception
+     * @Description
+     */
+    public static Flink1ComponentFactory getFactoryInstance() {
+        return FACTORY;
+    }
+
     @Override
     public Context getRuntimeContext() {
-        return null;
+        return new Flink1Context();
     }
 
     @Override
@@ -99,8 +121,13 @@ public class Flink1ComponentFactory implements ComponentFactory {
     }
 
     @Override
-    public WorkStageResult createWorkStageResult() {
+    public RowNumWorkStage createRowNumWorkStageComponent() {
         return null;
+    }
+
+    @Override
+    public WorkStageResult createWorkStageResult() {
+        return new FlinkWorkStageResult();
     }
 
     @Override
@@ -184,7 +211,12 @@ public class Flink1ComponentFactory implements ComponentFactory {
     }
 
     @Override
-    public WrapperRegister createWrapperRegister() {
+    public WorkStageHandler createRowNumWorkStageHandler(RowNumInfo rowNumInfo) {
         return null;
+    }
+
+    @Override
+    public WrapperRegister createWrapperRegister() {
+        return new FlinkWrapperRegister();
     }
 }

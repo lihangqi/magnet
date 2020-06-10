@@ -126,6 +126,11 @@ public class Spark1ComponentFactory implements ComponentFactory {
     }
 
     @Override
+    public RowNumWorkStage createRowNumWorkStageComponent() {
+        return new SparkRowNumWorkStage();
+    }
+
+    @Override
     public WorkStageResult createWorkStageResult() {
         return new SparkWorkStageResult();
     }
@@ -266,6 +271,11 @@ public class Spark1ComponentFactory implements ComponentFactory {
     @Override
     public WorkStageHandler createAddSequenceWorkStageHandler(AddSequenceInfo addSequenceInfo) {
         return new SparkAddSequenceDefaultHandler();
+    }
+
+    @Override
+    public WorkStageHandler createRowNumWorkStageHandler(RowNumInfo rowNumInfo) {
+        return new SparkDefaultRowNumHandler();
     }
 
     @Override

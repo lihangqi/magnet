@@ -199,6 +199,17 @@ public interface ComponentFactory {
     AddSequenceWorkStage createAddSequenceWorkStageComponent();
 
     /**
+     * 创建行号字段作业组件
+     * @Author huan
+     * @Date 2020-06-07
+     * @Param []
+     * @Return org.eocencle.magnet.core.component.RowNumWorkStage
+     * @Exception
+     * @Description
+     */
+    RowNumWorkStage createRowNumWorkStageComponent();
+
+    /**
      * 创建作业结果
      * @Author huan
      * @Date 2020-01-22
@@ -384,6 +395,17 @@ public interface ComponentFactory {
      * @Description
      **/
     WorkStageHandler createAddSequenceWorkStageHandler(AddSequenceInfo addSequenceInfo);
+
+    /**
+     * 创建行号作业操作
+     * @Author huan
+     * @Date 2020-06-07
+     * @Param [rowNumInfo]
+     * @Return org.eocencle.magnet.core.component.WorkStageHandler
+     * @Exception
+     * @Description
+     */
+    WorkStageHandler createRowNumWorkStageHandler(RowNumInfo rowNumInfo);
 
     /**
      * 创建包装注册器

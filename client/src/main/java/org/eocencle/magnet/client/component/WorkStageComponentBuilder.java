@@ -187,6 +187,10 @@ public class WorkStageComponentBuilder {
                 // 添加序列
                 component = factory.createAddSequenceWorkStageComponent();
                 operate = factory.createAddSequenceWorkStageHandler((AddSequenceInfo) workFlowInfo);
+            } else if (workFlowInfo instanceof RowNumInfo) {
+                // 添加行号
+                component = factory.createRowNumWorkStageComponent();
+                operate = factory.createRowNumWorkStageHandler((RowNumInfo) workFlowInfo);
             } else {
                 throw new UnsupportedException("Unsupported workflow type " + workFlowInfo.getClass().getName() + "!");
             }

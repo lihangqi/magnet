@@ -102,4 +102,6 @@ public class XMLBuilderTag {
     public static final String XML_ATTR_INIT            = "init";
     public static final String XML_ATTR_STEP            = "step";
     public static final String XML_ATTR_STREAM_STATE    = "streamState";
+
+    public static final String ROWNUM_DEFAULT_FIELD     = "rownum";
 }

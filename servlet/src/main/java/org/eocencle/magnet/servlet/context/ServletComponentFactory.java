@@ -1,4 +1,4 @@
-package org.eocencle.magnet.spark2.context;
+package org.eocencle.magnet.servlet.context;
 
 import org.eocencle.magnet.core.component.*;
 import org.eocencle.magnet.core.component.wrapper.WrapperRegister;
@@ -7,12 +7,12 @@ import org.eocencle.magnet.core.context.Context;
 import org.eocencle.magnet.core.mapping.*;
 
 /**
- * Spark2环境工厂类
+ * Servlet环境工厂类
  * @author: huan
- * @Date: 2020-05-25
+ * @Date: 2020-06-06
  * @Description:
  */
-public class Spark2ComponentFactory implements ComponentFactory {
+public class ServletComponentFactory implements ComponentFactory {
     @Override
     public Context getRuntimeContext() {
         return null;

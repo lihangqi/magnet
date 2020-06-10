@@ -5,6 +5,7 @@ import org.eocencle.magnet.core.exception.UnsupportedException;
 import org.eocencle.magnet.core.session.RuntimeEnvironmentConfig;
 import org.eocencle.magnet.core.util.CoreTag;
 import org.eocencle.magnet.core.util.StrictMap;
+import org.eocencle.magnet.flink1.context.Flink1ComponentFactory;
 import org.eocencle.magnet.spark1.context.Spark1ComponentFactory;
 
 /**
@@ -19,6 +20,7 @@ public class RuntimeEnvironmentBuilder {
 
     static {
         FACTORYS.put(CoreTag.CONTEXT_SPARK1.toUpperCase(), Spark1ComponentFactory.getFactoryInstance());
+        FACTORYS.put(CoreTag.CONTEXT_FLINK1.toUpperCase(), Flink1ComponentFactory.getFactoryInstance());
     }
 
     /**

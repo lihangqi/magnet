@@ -57,6 +57,8 @@ public class Spark1Context extends Context {
             } else {
                 throw new UnsupportedException(this.getSqlEngine() + " SQL engine not supported");
             }
+        } else {
+            throw new UnsupportedException("Unknown execution mode " + this.getProcessMode());
         }
 
         // 注册自定义函数

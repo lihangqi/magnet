@@ -12,7 +12,7 @@ public class CoreTag {
 
     // 上下文环境
     public static final String CONTEXT_SPARK1   = "Spark1";
-    public static final String CONTEXT_FLINK    = "Flink";
+    public static final String CONTEXT_FLINK1   = "Flink1";
 
     // 上下文环境默认版本
     public static final String CONTEXT_VERSION_DEFALUT = "1.6.0";

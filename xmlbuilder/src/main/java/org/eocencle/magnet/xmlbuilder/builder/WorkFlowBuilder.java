@@ -52,6 +52,7 @@ public class WorkFlowBuilder implements XMLParser {
         this.parseStringCutsElements(workflowNode, config);
         this.parseAddFieldsElements(workflowNode, config);
         this.parseAddSequenceElements(workflowNode, config);
+        this.parseRowNumElements(workflowNode, config);
     }
 
     /**
@@ -276,6 +277,20 @@ public class WorkFlowBuilder implements XMLParser {
      **/
     private void parseAddSequenceElements(XNode node, XmlProjectConfig config) {
         AddSequenceBuilder builder = AddSequenceBuilder.getInstance();
+        builder.parse(node, config);
+    }
+
+    /**
+     * 解析行号元素
+     * @Author huan
+     * @Date 2020-06-07
+     * @Param [node, config]
+     * @Return void
+     * @Exception
+     * @Description
+     */
+    private void parseRowNumElements(XNode node, XmlProjectConfig config) {
+        RowNumBuilder builder = RowNumBuilder.getInstance();
         builder.parse(node, config);
     }
 }

@@ -24,17 +24,12 @@
     <dependencies>
         <dependency>
             <groupId>org.eocencle</groupId>
-            <artifactId>magnet-core</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eocencle</groupId>
-            <artifactId>magnet-xmlbuilder</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eocencle</groupId>
             <artifactId>magnet-spark1</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eocencle</groupId>
+            <artifactId>magnet-flink1</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
