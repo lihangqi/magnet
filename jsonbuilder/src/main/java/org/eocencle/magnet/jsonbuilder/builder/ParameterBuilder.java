@@ -2,6 +2,7 @@ package org.eocencle.magnet.jsonbuilder.builder;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.eocencle.magnet.core.util.StrictMap;
 import org.eocencle.magnet.jsonbuilder.session.JsonProjectConfig;
 import org.eocencle.magnet.jsonbuilder.util.JSONBuilderTag;
 
@@ -54,6 +55,36 @@ public class ParameterBuilder implements JSONParser {
                 config.putParameterInfo(key, this.parseList(jsonObj.getJSONArray(JSONBuilderTag.JSON_ATTR_LIST)));
             }
         }
+    }
+
+    /**
+     *
+     * @Author huan
+     * @Date 2020-06-14
+     * @Param [parser]
+     * @Return org.eocencle.magnet.core.util.StrictMap<java.lang.Object>
+     * @Exception
+     * @Description
+     */
+    public StrictMap<Object> parse(Object parser) {
+        JSONObject jsonObejct = (JSONObject) parser;
+        JSONArray paramArray = jsonObejct.getJSONArray(JSONBuilderTag.JSON_ATTR_PARAMETER);
+
+        Iterator<Object> iterator = paramArray.iterator();
+        JSONObject jsonObj = null;
+        String key = null;
+        StrictMap<Object> map = new StrictMap<>("Params");
+        while (iterator.hasNext()) {
+            jsonObj = (JSONObject) iterator.next();
+            key = jsonObj.getString(JSONBuilderTag.JSON_ATTR_KEY);
+            if (jsonObj.containsKey(JSONBuilderTag.JSON_ATTR_VALUE)) {
+                map.put(key, jsonObj.getString(JSONBuilderTag.JSON_ATTR_VALUE));
+                continue;
+            } else if (jsonObj.containsKey(JSONBuilderTag.JSON_ATTR_LIST)) {
+                map.put(key, this.parseList(jsonObj.getJSONArray(JSONBuilderTag.JSON_ATTR_LIST)));
+            }
+        }
+        return map;
     }
 
     /**

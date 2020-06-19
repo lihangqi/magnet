@@ -4,8 +4,12 @@ import org.eocencle.magnet.core.component.*;
 import org.eocencle.magnet.core.component.wrapper.WrapperRegister;
 import org.eocencle.magnet.core.context.ComponentFactory;
 import org.eocencle.magnet.core.context.Context;
+import org.eocencle.magnet.core.exception.UnsupportedException;
 import org.eocencle.magnet.core.mapping.*;
+import org.eocencle.magnet.core.util.CoreTag;
+import org.eocencle.magnet.flink1.component.FlinkTableWorkStage;
 import org.eocencle.magnet.flink1.component.FlinkWorkStageResult;
+import org.eocencle.magnet.flink1.component.handler.impl.FlinkTextTableLoadHandler;
 import org.eocencle.magnet.flink1.component.wrapper.FlinkWrapperRegister;
 
 /**
@@ -42,7 +46,7 @@ public class Flink1ComponentFactory implements ComponentFactory {
 
     @Override
     public TableWorkStage createTableWorkStageComponent() {
-        return null;
+        return new FlinkTableWorkStage();
     }
 
     @Override
@@ -132,7 +136,10 @@ public class Flink1ComponentFactory implements ComponentFactory {
 
     @Override
     public WorkStageHandler createTableWorkStageHandler(TableInfo tableInfo) {
-        return null;
+        if (CoreTag.FILE_FORMAT_TEXTFILE.equalsIgnoreCase(tableInfo.getFormat())) {
+            return new FlinkTextTableLoadHandler();
+        }
+        throw new UnsupportedException("Table does not support " + tableInfo.getStyle() + " style!");
     }
 
     @Override

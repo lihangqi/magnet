@@ -40,6 +40,11 @@
             <artifactId>magnet-extend</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.eocencle</groupId>
+            <artifactId>magnet-jsonbuilder</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <!--hadoop-->
         <dependency>
