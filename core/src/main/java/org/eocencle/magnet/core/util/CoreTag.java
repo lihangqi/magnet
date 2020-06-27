@@ -157,7 +157,7 @@ public class CoreTag {
     public static final String TABLE_STYLE_KAFKA    = "kafka";
 
     // 数据库连接
-    public static final String DB_TYPE      = "db.type";
+    public static final String DB_DIALECT   = "db.dialect";
     public static final String DB_HOST      = "db.host";
     public static final String DB_PORT      = "db.port";
     public static final String DB_DATABASE  = "db.database";
@@ -192,7 +192,8 @@ public class CoreTag {
     public static final String FALSE    = "false";
 
     // 配置读取模式
-    public static final String CONFIG_READ_MODE_XML = "xml";
+    public static final String CONFIG_READ_MODE_XML     = "xml";
+    public static final String CONFIG_READ_MODE_JSON    = "json";
 
     // 任务异常输出项
     public static final String TASK_EXCEPTION_PRINT_STACK           = "stack";

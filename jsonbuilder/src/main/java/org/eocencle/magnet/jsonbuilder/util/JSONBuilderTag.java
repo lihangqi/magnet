@@ -51,6 +51,7 @@ public class JSONBuilderTag {
     public static final String JSON_ATTR_ADDFIELDS          = "addFields";
     public static final String JSON_ATTR_INIT               = "init";
     public static final String JSON_ATTR_STEP               = "step";
+    public static final String JSON_ATTR_CTYPE		        = "ctype";
 
     public static final String DATASOURCE_TYPE_TABLE		= "table";
     public static final String DATASOURCE_TYPE_STREAM		= "stream";

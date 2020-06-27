@@ -19,9 +19,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <scala.version>2.10</scala.version>
-        <spark.version>1.6.0</spark.version>
+        <scala.version>2.11.8</scala.version>
+        <spark.version>1.6.3</spark.version>
         <hadoop.version>2.6.0</hadoop.version>
+        <scala.binary.version>2.11</scala.binary.version>
     </properties>
 
     <dependencies>
@@ -62,31 +63,31 @@
         <!--spark-->
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.10</artifactId>
+            <artifactId>spark-core_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-sql_2.10</artifactId>
+            <artifactId>spark-sql_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-streaming_2.10</artifactId>
+            <artifactId>spark-streaming_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
 
         <!--spark和kafka整合-->
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-streaming-kafka_2.10</artifactId>
+            <artifactId>spark-streaming-kafka_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
 
         <!--hiveSQL引擎-->
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-hive_2.10</artifactId>
+            <artifactId>spark-hive_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
     </dependencies>

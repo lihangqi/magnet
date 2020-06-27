@@ -47,7 +47,7 @@ public class WorkFlowBuilder implements JSONParser {
         String type = null;
         while (iterator.hasNext()) {
             jsonObj = (JSONObject) iterator.next();
-            type = jsonObj.getString(JSONBuilderTag.JSON_ATTR_TYPE);
+            type = jsonObj.getString(JSONBuilderTag.JSON_ATTR_CTYPE);
             if (JSONBuilderTag.WORKFLOW_TYPE_SQL.equalsIgnoreCase(type)) {
                 this.parseSQLElements(jsonObj, config);
             } else if (JSONBuilderTag.WORKFLOW_TYPE_OUTPUT.equalsIgnoreCase(type)) {
@@ -244,16 +244,16 @@ public class WorkFlowBuilder implements JSONParser {
             Iterator<Object> iterator = distincts.iterator();
             JSONObject cond = null;
             DistinctInfo.DistinctField distinctField = null;
-            String join = null;
+            String ignore = null;
             while (iterator.hasNext()) {
                 distinctField = new DistinctInfo.DistinctField();
                 cond = (JSONObject) iterator.next();
                 distinctField.setField(cond.getString(JSONBuilderTag.JSON_ATTR_FIELD));
-                join = cond.getString(JSONBuilderTag.JSON_ATTR_IGNORECASE);
-                if (null == join) {
+                ignore = cond.getString(JSONBuilderTag.JSON_ATTR_IGNORECASE);
+                if (null == ignore) {
                     distinctField.setIgnoreCase(JSONBuilderTag.FALSE);
                 } else {
-                    distinctField.setIgnoreCase(join);
+                    distinctField.setIgnoreCase(ignore);
                 }
 
                 distinctInfo.addDistinctFields(distinctField);

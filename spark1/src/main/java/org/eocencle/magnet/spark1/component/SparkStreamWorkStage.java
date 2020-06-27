@@ -43,10 +43,6 @@ public class SparkStreamWorkStage extends StreamWorkStage implements Serializabl
         Context context = parameter.getContext();
         JavaStreamingContext ssc = (JavaStreamingContext) context.getStreamContext();
 
-        // 设置checkpoint
-        String checkPoint = this.getParent().getParam(CoreTag.MAGNET_STREAM_CHECK_POINT).toString();
-        ssc.checkpoint(checkPoint);
-
         // 主题
         Set<String> topics = new HashSet<>(Arrays.asList(this.streamInfo.getTopics().split(CoreTag.STRING_COMMA)));
 

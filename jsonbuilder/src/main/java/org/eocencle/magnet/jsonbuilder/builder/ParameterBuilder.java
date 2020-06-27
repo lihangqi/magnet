@@ -42,17 +42,19 @@ public class ParameterBuilder implements JSONParser {
         JSONObject jsonObejct = (JSONObject) parser;
         JSONArray paramArray = jsonObejct.getJSONArray(JSONBuilderTag.JSON_ATTR_PARAMETER);
 
-        Iterator<Object> iterator = paramArray.iterator();
-        JSONObject jsonObj = null;
-        String key = null;
-        while (iterator.hasNext()) {
-            jsonObj = (JSONObject) iterator.next();
-            key = jsonObj.getString(JSONBuilderTag.JSON_ATTR_KEY);
-            if (jsonObj.containsKey(JSONBuilderTag.JSON_ATTR_VALUE)) {
-                config.putParameterInfo(key, jsonObj.getString(JSONBuilderTag.JSON_ATTR_VALUE));
-                continue;
-            } else if (jsonObj.containsKey(JSONBuilderTag.JSON_ATTR_LIST)) {
-                config.putParameterInfo(key, this.parseList(jsonObj.getJSONArray(JSONBuilderTag.JSON_ATTR_LIST)));
+        if (null != paramArray) {
+            Iterator<Object> iterator = paramArray.iterator();
+            JSONObject jsonObj = null;
+            String key = null;
+            while (iterator.hasNext()) {
+                jsonObj = (JSONObject) iterator.next();
+                key = jsonObj.getString(JSONBuilderTag.JSON_ATTR_KEY);
+                if (jsonObj.containsKey(JSONBuilderTag.JSON_ATTR_VALUE)) {
+                    config.putParameterInfo(key, jsonObj.getString(JSONBuilderTag.JSON_ATTR_VALUE));
+                    continue;
+                } else if (jsonObj.containsKey(JSONBuilderTag.JSON_ATTR_LIST)) {
+                    config.putParameterInfo(key, this.parseList(jsonObj.getJSONArray(JSONBuilderTag.JSON_ATTR_LIST)));
+                }
             }
         }
     }

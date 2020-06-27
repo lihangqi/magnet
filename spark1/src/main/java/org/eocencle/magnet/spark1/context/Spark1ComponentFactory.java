@@ -150,6 +150,8 @@ public class Spark1ComponentFactory implements ComponentFactory {
                 return new SparkORCTableLoader(tableInfo);
             } else if (CoreTag.FILE_FORMAT_PARQUETFILE.equalsIgnoreCase(tableInfo.getFormat())) {
                 return new SparkParquetTableLoader(tableInfo);
+            } else if (CoreTag.FILE_FORMAT_JSONFILE.equalsIgnoreCase(tableInfo.getFormat())) {
+                return new SparkJsonTableLoader(tableInfo);
             }
         }
         throw new UnsupportedException("Table does not support " + tableInfo.getStyle() + " style!");
@@ -160,8 +162,8 @@ public class Spark1ComponentFactory implements ComponentFactory {
         StrictMap<InfoParam> config = streamInfo.getConfig();
         if (config.containsKey(CoreTag.STREAM_CONFIG_DB)) {
             StrictMap<String> dbConfig = config.get(CoreTag.STREAM_CONFIG_DB).getMap();
-            String dbType = dbConfig.get(CoreTag.DB_TYPE);
-            if (dbType.equalsIgnoreCase(CoreTag.DB_TYPE_MYSQL)) {
+            String dbDialect = dbConfig.get(CoreTag.DB_DIALECT);
+            if (dbDialect.equalsIgnoreCase(CoreTag.DB_TYPE_MYSQL)) {
 
                 KafkaOffsetSaveToMysql offsetSaveToMysql = new KafkaOffsetSaveToMysql();
                      offsetSaveToMysql.init(dbConfig.get(
@@ -173,7 +175,7 @@ public class Spark1ComponentFactory implements ComponentFactory {
                              dbConfig.get(CoreTag.DB_PASSWORD));
                     return offsetSaveToMysql;
             } else {
-                throw new UnsupportedException(dbType + " is not supported for offset storage!");
+                throw new UnsupportedException(dbDialect + " is not supported for offset storage!");
             }
         } else {
 

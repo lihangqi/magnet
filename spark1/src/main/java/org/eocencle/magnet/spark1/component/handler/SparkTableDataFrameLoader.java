@@ -5,7 +5,6 @@ import org.apache.spark.sql.DataFrame;
 import org.apache.spark.sql.Row;
 import org.eocencle.magnet.core.context.Context;
 import org.eocencle.magnet.core.mapping.TableInfo;
-import org.eocencle.magnet.spark1.component.handler.SparkTableLoader;
 
 /**
  * Spark表DF优先加载器抽象类

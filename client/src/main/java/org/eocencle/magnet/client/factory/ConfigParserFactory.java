@@ -24,7 +24,7 @@ public class ConfigParserFactory {
      * @Description:
      */
     public static ProjectConfig getProjectConfig(String filePath) throws FileNotFoundException {
-        String suffix = filePath.substring(filePath.lastIndexOf("."));
+        String suffix = filePath.substring(filePath.lastIndexOf(".") + 1);
         ProjectConfigBuilder builder = null;
         // 创建项目构建工具
         if ("xml".equalsIgnoreCase(suffix)) {

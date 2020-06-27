@@ -66,26 +66,26 @@ public class SparkDataBaseTableLoader extends SparkTableDataFrameLoader {
      * @Description
      **/
     private String getDBUrl() {
-        String type = this.tableInfo.getConfigParam(CoreTag.DB_TYPE);
+        String dialect = this.tableInfo.getConfigParam(CoreTag.DB_DIALECT);
         String host = this.tableInfo.getConfigParam(CoreTag.DB_HOST);
         String port = this.tableInfo.getConfigParam(CoreTag.DB_PORT);
         String dbName = this.tableInfo.getConfigParam(CoreTag.DB_DATABASE);
-        if (CoreTag.DB_TYPE_MYSQL.equalsIgnoreCase(type)) {
+        if (CoreTag.DB_TYPE_MYSQL.equalsIgnoreCase(dialect)) {
             if (StringUtils.isBlank(port)) {
                 port = CoreTag.DB_PORT_MYSQL;
             }
             return "jdbc:mysql://" + host + ":" + port + "/" + dbName;
-        } else if (CoreTag.DB_TYPE_SQLSERVER.equalsIgnoreCase(type)) {
+        } else if (CoreTag.DB_TYPE_SQLSERVER.equalsIgnoreCase(dialect)) {
             if (StringUtils.isBlank(port)) {
                 port = CoreTag.DB_PORT_SQLSERVER;
             }
             return "jdbc:sqlserver://" + host + ":" + port + ";DatabaseName=" + dbName;
-        } else if (CoreTag.DB_TYPE_ORACLE.equalsIgnoreCase(type)) {
+        } else if (CoreTag.DB_TYPE_ORACLE.equalsIgnoreCase(dialect)) {
             if (StringUtils.isBlank(port)) {
                 port = CoreTag.DB_PORT_ORACLE;
             }
             return "jdbc:oracle:thin:@" + host + ":" + port + ":" + dbName;
         }
-        throw new UnsupportedException(type + " database type is not supported!");
+        throw new UnsupportedException(dialect + " database dialect is not supported!");
     }
 }

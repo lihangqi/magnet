@@ -6,6 +6,7 @@ import org.eocencle.magnet.core.exception.UnsupportedException;
 import org.eocencle.magnet.core.mapping.DataSourceField;
 import org.eocencle.magnet.core.mapping.StreamInfo;
 import org.eocencle.magnet.core.mapping.TableInfo;
+import org.eocencle.magnet.core.util.CoreTag;
 import org.eocencle.magnet.jsonbuilder.session.JsonProjectConfig;
 import org.eocencle.magnet.jsonbuilder.util.JSONBuilderTag;
 
@@ -48,6 +49,8 @@ public class DataSourceBuilder implements JSONParser {
         String type = null;
         TableInfo table = null;
         StreamInfo stream = null;
+        String fieldType = CoreTag.TABLE_FIELD_TYPE_STRING;
+        String format = "yyyy-MM-dd HH:mm:ss";
         while (iterator.hasNext()) {
             jsonObj = (JSONObject) iterator.next();
             type = jsonObj.getString(JSONBuilderTag.JSON_ATTR_TYPE);
@@ -55,7 +58,11 @@ public class DataSourceBuilder implements JSONParser {
                 table = new TableInfo();
                 table.setId(jsonObj.getString(JSONBuilderTag.JSON_ATTR_ID));
                 table.setAlias(jsonObj.getString(JSONBuilderTag.JSON_ATTR_ALIAS));
-                table.setStyle(jsonObj.getString(JSONBuilderTag.JSON_ATTR_STYLE));
+                String style = jsonObj.getString(JSONBuilderTag.JSON_ATTR_STYLE);
+                if (null == style) {
+                    style = CoreTag.TABLE_STYLE_DEFAULT;
+                }
+                table.setStyle(style);
                 table.setSrc(jsonObj.getString(JSONBuilderTag.JSON_ATTR_SRC));
                 table.setFormat(jsonObj.getString(JSONBuilderTag.JSON_ATTR_FORMAT));
                 table.setSeparator(jsonObj.getString(JSONBuilderTag.JSON_ATTR_SEPARATOR));
@@ -64,10 +71,16 @@ public class DataSourceBuilder implements JSONParser {
                 Iterator<Object> fieldsIt = fieldsArr.iterator();
                 while (fieldsIt.hasNext()) {
                     JSONObject fieldObj = (JSONObject) fieldsIt.next();
+                    fieldType = fieldObj.getString(JSONBuilderTag.JSON_ATTR_TYPE);
+                    if (null == fieldType) {
+                        fieldType = CoreTag.TABLE_FIELD_TYPE_STRING;
+                    }
+                    format = fieldObj.getString(JSONBuilderTag.JSON_ATTR_FORMAT);
+                    if (null == format) {
+                        format = "yyyy-MM-dd HH:mm:ss";
+                    }
                     table.addField(new DataSourceField(fieldObj.getString(JSONBuilderTag.JSON_ATTR_NAME),
-                            fieldObj.getString(JSONBuilderTag.JSON_ATTR_TYPE),
-                            fieldObj.getString(JSONBuilderTag.JSON_ATTR_PRECISION),
-                            fieldObj.getString(JSONBuilderTag.JSON_ATTR_FORMAT)));
+                            fieldType, fieldObj.getString(JSONBuilderTag.JSON_ATTR_PRECISION), format));
                 }
 
                 config.putDataSourceInfo(table.getId(), table);
@@ -82,10 +95,16 @@ public class DataSourceBuilder implements JSONParser {
                 Iterator<Object> fieldsIt = fieldsArr.iterator();
                 while (fieldsIt.hasNext()) {
                     JSONObject fieldObj = (JSONObject) fieldsIt.next();
+                    fieldType = fieldObj.getString(JSONBuilderTag.JSON_ATTR_TYPE);
+                    if (null == fieldType) {
+                        fieldType = CoreTag.TABLE_FIELD_TYPE_STRING;
+                    }
+                    format = fieldObj.getString(JSONBuilderTag.JSON_ATTR_FORMAT);
+                    if (null == format) {
+                        format = "yyyy-MM-dd HH:mm:ss";
+                    }
                     stream.addField(new DataSourceField(fieldObj.getString(JSONBuilderTag.JSON_ATTR_NAME),
-                            fieldObj.getString(JSONBuilderTag.JSON_ATTR_TYPE),
-                            fieldObj.getString(JSONBuilderTag.JSON_ATTR_PRECISION),
-                            fieldObj.getString(JSONBuilderTag.JSON_ATTR_FORMAT)));
+                            fieldType, fieldObj.getString(JSONBuilderTag.JSON_ATTR_PRECISION), format));
                 }
 
                 config.putDataSourceInfo(stream.getId(), stream);

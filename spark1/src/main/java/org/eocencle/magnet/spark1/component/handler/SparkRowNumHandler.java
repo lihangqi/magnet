@@ -5,7 +5,6 @@ import org.apache.spark.sql.DataFrame;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
 import org.eocencle.magnet.core.component.WorkStageHandler;
-import org.eocencle.magnet.core.mapping.OrderInfo;
 import org.eocencle.magnet.core.mapping.RowNumInfo;
 
 /**
@@ -19,12 +18,12 @@ public interface SparkRowNumHandler extends WorkStageHandler {
      * 创建RDD
      * @Author huan
      * @Date 2020-06-07
-     * @Param [orderInfo, df]
+     * @Param [df]
      * @Return org.apache.spark.api.java.JavaRDD<org.apache.spark.sql.Row>
      * @Exception
      * @Description
      */
-    JavaRDD<Row> createRDD(OrderInfo orderInfo, DataFrame df);
+    JavaRDD<Row> createRDD(DataFrame df);
 
     /**
      * 创建DataFrame
