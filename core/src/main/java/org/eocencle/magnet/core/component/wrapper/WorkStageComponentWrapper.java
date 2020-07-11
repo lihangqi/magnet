@@ -1,6 +1,7 @@
 package org.eocencle.magnet.core.component.wrapper;
 
 import org.eocencle.magnet.core.component.*;
+import org.eocencle.magnet.core.exception.IgnoreException;
 import org.eocencle.magnet.core.mapping.WorkStageInfo;
 
 import java.util.List;
@@ -41,6 +42,8 @@ public abstract class WorkStageComponentWrapper extends WorkStageComponent {
         this.before(parameter);
         try {
             results = this.workStageComponent.execute(parameter);
+        } catch (IgnoreException e) {
+            throw e;
         } catch (Exception e) {
             // 捕获任务异常并退出
             taskException = e;

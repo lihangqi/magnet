@@ -200,10 +200,10 @@ public class WorkFlowBuilder implements JSONParser {
         if (null != conditions) {
             Iterator<Object> iterator = conditions.iterator();
             JSONObject cond = null;
-            FilterInfo.FilterField filterField = null;
+            FilterField filterField = null;
             String join = null;
             while (iterator.hasNext()) {
-                filterField = new FilterInfo.FilterField();
+                filterField = new FilterField();
                 cond = (JSONObject) iterator.next();
                 join = cond.getString(JSONBuilderTag.JSON_ATTR_JOIN);
                 if (null == join) {

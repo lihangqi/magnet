@@ -19,7 +19,7 @@ public class JoinInfo extends WorkFlowInfo {
     // 关联右引用
     private String rightRef;
     // 过滤字段
-    private List<FilterInfo.FilterField> filterFields = new ArrayList<>();
+    private List<FilterField> filterFields = new ArrayList<>();
 
     public String getAlias() {
         return alias;
@@ -53,15 +53,15 @@ public class JoinInfo extends WorkFlowInfo {
         this.rightRef = rightRef;
     }
 
-    public List<FilterInfo.FilterField> getFilterFields() {
+    public List<FilterField> getFilterFields() {
         return filterFields;
     }
 
-    public void setFilterFields(List<FilterInfo.FilterField> filterFields) {
+    public void setFilterFields(List<FilterField> filterFields) {
         this.filterFields = filterFields;
     }
 
-    public void addFilterFields(FilterInfo.FilterField filterField) {
+    public void addFilterFields(FilterField filterField) {
         this.filterFields.add(filterField);
     }
 }

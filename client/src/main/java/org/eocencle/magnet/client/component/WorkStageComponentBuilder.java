@@ -62,6 +62,8 @@ public class WorkStageComponentBuilder {
         WorkStageHandler operate = null;
         // 流组件
         WorkStageComponent streamComponent = null;
+        // 流数据加载组件
+        WorkStageComponent streamDataLoadComponent = null;
 
         // 构造参数
         mainComposite.setParams((StrictMap<Object>) config.getParameterInfo().clone());
@@ -79,6 +81,8 @@ public class WorkStageComponentBuilder {
                 streamComponent = factory.createStreamWorkStageComponent();
                 streamComponent.initData(dataSourceInfo);
                 streamComponent.initHandler(factory.createStreamWorkStageHandler((StreamInfo) dataSourceInfo));
+
+                streamDataLoadComponent = factory.createStreamDataLoadWorkStageComponent();
                 continue;
             }
 
@@ -92,6 +96,7 @@ public class WorkStageComponentBuilder {
             buildWorkflow(mainComposite, workflow, confReadMode);
         } else if (CoreTag.PROCESS_MODE_STREAM.equalsIgnoreCase(config.getParameterInfo(CoreTag.MAGNET_PROCESS_MODE).toString())) {
             mainComposite.add(streamComponent);
+            streamComponent.add(WrapperManager.wrapper(streamDataLoadComponent, dataSourceInfo, null));
             buildWorkflow(streamComponent, workflow, confReadMode);
         }
 
@@ -191,6 +196,10 @@ public class WorkStageComponentBuilder {
                 // 添加行号
                 component = factory.createRowNumWorkStageComponent();
                 operate = factory.createRowNumWorkStageHandler((RowNumInfo) workFlowInfo);
+            } else if (workFlowInfo instanceof QueryInfo) {
+                // 添加查询
+                component = factory.createQueryWorkStageComponent();
+                operate = factory.createQueryWorkStageHandler((QueryInfo) workFlowInfo);
             } else {
                 throw new UnsupportedException("Unsupported workflow type " + workFlowInfo.getClass().getName() + "!");
             }

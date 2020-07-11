@@ -45,6 +45,17 @@ public interface ComponentFactory {
     StreamWorkStage createStreamWorkStageComponent();
 
     /**
+     * 创建流数据加载作业组件
+     * @Author huan
+     * @Date 2020-06-27
+     * @Param []
+     * @Return org.eocencle.magnet.core.component.StreamDataLoadWorkStage
+     * @Exception
+     * @Description
+     */
+    StreamDataLoadWorkStage createStreamDataLoadWorkStageComponent();
+
+    /**
      * 创建SQL作业组件
      * @Author huan
      * @Date 2020-01-22
@@ -208,6 +219,14 @@ public interface ComponentFactory {
      * @Description
      */
     RowNumWorkStage createRowNumWorkStageComponent();
+
+    /**
+     * 创建查询作业组件
+     * @author: huan
+     * @Date: 2020-07-05
+     * @Description:
+     */
+    QueryWorkStage createQueryWorkStageComponent();
 
     /**
      * 创建作业结果
@@ -406,6 +425,17 @@ public interface ComponentFactory {
      * @Description
      */
     WorkStageHandler createRowNumWorkStageHandler(RowNumInfo rowNumInfo);
+
+    /**
+     * 创建查询作业操作
+     * @Author huan
+     * @Date 2020-07-05
+     * @Param [queryInfo]
+     * @Return org.eocencle.magnet.core.component.WorkStageHandler
+     * @Exception
+     * @Description
+     */
+    WorkStageHandler createQueryWorkStageHandler(QueryInfo queryInfo);
 
     /**
      * 创建包装注册器

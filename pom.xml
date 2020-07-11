@@ -18,6 +18,7 @@
         <module>flink1</module>
         <module>jsonbuilder</module>
         <module>extend</module>
+        <module>commons</module>
     </modules>
 
     <name>magnet</name>

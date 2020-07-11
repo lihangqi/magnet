@@ -29,6 +29,11 @@ public class Spark2ComponentFactory implements ComponentFactory {
     }
 
     @Override
+    public StreamDataLoadWorkStage createStreamDataLoadWorkStageComponent() {
+        return null;
+    }
+
+    @Override
     public SQLWorkStage createSQLWorkStageComponent() {
         return null;
     }
@@ -100,6 +105,11 @@ public class Spark2ComponentFactory implements ComponentFactory {
 
     @Override
     public RowNumWorkStage createRowNumWorkStageComponent() {
+        return null;
+    }
+
+    @Override
+    public QueryWorkStage createQueryWorkStageComponent() {
         return null;
     }
 
@@ -190,6 +200,11 @@ public class Spark2ComponentFactory implements ComponentFactory {
 
     @Override
     public WorkStageHandler createRowNumWorkStageHandler(RowNumInfo rowNumInfo) {
+        return null;
+    }
+
+    @Override
+    public WorkStageHandler createQueryWorkStageHandler(QueryInfo queryInfo) {
         return null;
     }
 

@@ -12,6 +12,7 @@ import org.eocencle.magnet.core.component.wrapper.WorkStageComponentWrapper;
 import org.eocencle.magnet.core.exception.IgnoreException;
 import org.eocencle.magnet.core.util.CoreTag;
 import org.eocencle.magnet.core.util.StrictMap;
+import org.eocencle.magnet.spark1.component.SparkStreamReceiveWorkStageResult;
 import org.eocencle.magnet.spark1.component.SparkWorkStageResult;
 
 import java.util.List;
@@ -145,16 +146,6 @@ public class SparkCollectExceptionWrapper extends WorkStageComponentWrapper {
     private void printStreamSource(String dir) {
         dir += CoreTag.STRING_UNDERLINE + System.currentTimeMillis();
         logger.error("Stream source set dir: " + dir);
-        ((SparkWorkStageResult) this.getParent().getStreamBatchResult()).getRdd().map((Row row) -> {
-            String[] val = new String[row.length()];
-            for (int i = 0; i < row.length(); i++) {
-                if (row.isNullAt(i)) {
-                    val[i] = CoreTag.STRING_BLANK;
-                } else {
-                    val[i] = row.get(i).toString();
-                }
-            }
-            return StringUtils.join(val, CoreTag.STRING_COMMA);
-        }).saveAsTextFile(dir);
+        ((SparkStreamReceiveWorkStageResult) this.getParent().getStreamBatchResult()).getLines().saveAsTextFile(dir);
     }
 }

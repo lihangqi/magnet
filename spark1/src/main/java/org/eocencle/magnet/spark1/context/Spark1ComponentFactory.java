@@ -56,6 +56,11 @@ public class Spark1ComponentFactory implements ComponentFactory {
     }
 
     @Override
+    public StreamDataLoadWorkStage createStreamDataLoadWorkStageComponent() {
+        return new SparkStreamDataLoadWorkStage();
+    }
+
+    @Override
     public SQLWorkStage createSQLWorkStageComponent() {
         return new SparkSQLWorkStage();
     }
@@ -128,6 +133,11 @@ public class Spark1ComponentFactory implements ComponentFactory {
     @Override
     public RowNumWorkStage createRowNumWorkStageComponent() {
         return new SparkRowNumWorkStage();
+    }
+
+    @Override
+    public QueryWorkStage createQueryWorkStageComponent() {
+        return new SparkQueryWorkStage();
     }
 
     @Override
@@ -278,6 +288,11 @@ public class Spark1ComponentFactory implements ComponentFactory {
     @Override
     public WorkStageHandler createRowNumWorkStageHandler(RowNumInfo rowNumInfo) {
         return new SparkDefaultRowNumHandler();
+    }
+
+    @Override
+    public WorkStageHandler createQueryWorkStageHandler(QueryInfo queryInfo) {
+        return null;
     }
 
     @Override

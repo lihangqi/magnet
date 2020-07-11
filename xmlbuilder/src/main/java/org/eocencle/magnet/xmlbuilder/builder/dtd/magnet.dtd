@@ -41,7 +41,7 @@
                     format (TextFile | MapFile | RCFile | ORCFile | ParquetFile | AvroFile | JsonFile) "TextFile"
                     separator CDATA #IMPLIED "\001">
     <!ELEMENT workflow (sql | filter | distinct | union | join | output | branch | order | rownum | group |
-            schema | valueMappers | splitFieldToRows | stringCuts | addFields | addSequence)*>
+            schema | valueMappers | splitFieldToRows | stringCuts | addFields | addSequence | query)*>
         <!ELEMENT sql (#PCDATA | include | trim | where | foreach | choose | if)*>
             <!ATTLIST sql
                     id CDATA #REQUIRED
@@ -306,3 +306,10 @@
                     tagField CDATA #REQUIRED
                     init CDATA #IMPLIED
                     step CDATA #IMPLIED>
+        <!ELEMENT query (config, conditions, fields)>
+            <!ATTLIST query
+                    id CDATA #REQUIRED
+                    alias CDATA #IMPLIED
+                    ref CDATA #IMPLIED
+                    type (database) "database"
+                    cache (true | false) "false">

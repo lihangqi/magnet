@@ -4,15 +4,11 @@ import kafka.common.TopicAndPartition;
 import kafka.message.MessageAndMetadata;
 import kafka.serializer.StringDecoder;
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.sql.DataFrame;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SQLContext;
 import org.apache.spark.streaming.api.java.JavaInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.kafka.KafkaCluster;
 import org.apache.spark.streaming.kafka.KafkaUtils;
 import org.eocencle.magnet.core.component.*;
-import org.eocencle.magnet.core.context.ComponentFactory;
 import org.eocencle.magnet.core.context.Context;
 import org.eocencle.magnet.core.exception.IgnoreException;
 import org.eocencle.magnet.core.util.CoreTag;
@@ -21,7 +17,8 @@ import org.eocencle.magnet.spark1.component.handler.KafkaOffsetManager;
 import org.eocencle.magnet.spark1.util.SparkUtil;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * spark流作业节点类
@@ -42,9 +39,6 @@ public class SparkStreamWorkStage extends StreamWorkStage implements Serializabl
     public List<WorkStageResult> execute(WorkStageParameter parameter) {
         Context context = parameter.getContext();
         JavaStreamingContext ssc = (JavaStreamingContext) context.getStreamContext();
-
-        // 主题
-        Set<String> topics = new HashSet<>(Arrays.asList(this.streamInfo.getTopics().split(CoreTag.STRING_COMMA)));
 
         // kafka参数
         StrictMap<String> kafkaConfig = this.streamInfo.getConfig().get(CoreTag.STREAM_CONFIG_KAFKA).getMap();
@@ -75,35 +69,17 @@ public class SparkStreamWorkStage extends StreamWorkStage implements Serializabl
 
         // 遍历流
         dStream.foreachRDD((JavaRDD<String> line) -> {
-            ComponentFactory factory = WorkStageComponentBuilderAssistant.getFactory();
+            if (!line.isEmpty()) {
+                getParent().setStreamBatchResult(new SparkStreamReceiveWorkStageResult(line));
 
-            // 创建RDD
-            JavaRDD<Row> rdd = SparkUtil.createRDD(line, streamInfo.getSeparator(), streamInfo.getFields());
-            // 创建DataFrame
-            DataFrame df = SparkUtil.createDataFrame((SQLContext) context.getSQLContext(), streamInfo.getFields(), rdd);
-
-            SparkWorkStageResult result = (SparkWorkStageResult) factory.createWorkStageResult();
-            result.setId(streamInfo.getId());
-            result.setAlias(streamInfo.getAlias());
-            result.setRdd(rdd);
-            result.setDf(df);
-
-            WorkStageComposite parent = getParent();
-            String id = streamInfo.getId();
-            String idName = parent.getMixedTableName(id);
-            parent.putTableName(id, idName);
-
-            df.registerTempTable(idName);
-
-            parent.changeLastResult(result);
-            parent.setStreamBatchResult(result);
-
-            try {
-                for (WorkStageComponent component: components) {
-                    component.execute(parameter);
+                try {
+                    // 执行组件
+                    for (WorkStageComponent component: components) {
+                        component.execute(parameter);
+                    }
+                } catch (IgnoreException e) {
+                    // 忽略异常，不做任何处理
                 }
-            } catch (IgnoreException e) {
-                // 忽略异常，不做任何处理
             }
         });
 

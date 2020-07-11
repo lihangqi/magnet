@@ -2,7 +2,7 @@ package org.eocencle.magnet.spark1.component.handler.impl;
 
 import org.apache.spark.sql.Column;
 import org.apache.spark.sql.DataFrame;
-import org.eocencle.magnet.core.mapping.FilterInfo;
+import org.eocencle.magnet.core.mapping.FilterField;
 import org.eocencle.magnet.core.util.CoreTag;
 import org.eocencle.magnet.spark1.component.handler.SparkFilterCondition;
 
@@ -17,12 +17,12 @@ import java.util.List;
  */
 public class SparkDefaultFilterCondition implements SparkFilterCondition {
     @Override
-    public DataFrame filter(List<FilterInfo.FilterField> filterFields, DataFrame df) {
+    public DataFrame filter(List<FilterField> filterFields, DataFrame df) {
         DataFrame result = null;
         if (null != filterFields && 0 != filterFields.size()) {
             Column first = this.setCondition(filterFields.get(0), df);
             Column column = first, tmp = null;
-            FilterInfo.FilterField field = null;
+            FilterField field = null;
             for (int i = 1; i < filterFields.size(); i ++) {
                 field = filterFields.get(i);
                 tmp = this.setCondition(field, df);
@@ -50,7 +50,7 @@ public class SparkDefaultFilterCondition implements SparkFilterCondition {
      * @Exception
      * @Description
      **/
-    private Column setCondition(FilterInfo.FilterField filterField, DataFrame df) {
+    private Column setCondition(FilterField filterField, DataFrame df) {
         Column column = df.col(filterField.getField());
         if (CoreTag.FILTER_CONDITION_ISNULL.equals(filterField.getType())) {
             column = column.isNull();

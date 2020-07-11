@@ -54,6 +54,7 @@ public class XMLBuilderTag {
     public static final String XML_EL_STRINGCUTS                = "stringCuts";
     public static final String XML_EL_ADDFIELDS                 = "addFields";
     public static final String XML_EL_ADDSEQUENCE               = "addSequence";
+    public static final String XML_EL_QUERY                     = "query";
 
     // xml属性
     public static final String XML_ATTR_ID			    = "id";
@@ -102,6 +103,7 @@ public class XMLBuilderTag {
     public static final String XML_ATTR_INIT            = "init";
     public static final String XML_ATTR_STEP            = "step";
     public static final String XML_ATTR_STREAM_STATE    = "streamState";
+    public static final String XML_ATTR_CACHE			= "cache";
 
     public static final String ROWNUM_DEFAULT_FIELD     = "rownum";
 }

@@ -2,7 +2,7 @@ package org.eocencle.magnet.spark1.component.handler;
 
 import org.apache.spark.sql.DataFrame;
 import org.eocencle.magnet.core.component.WorkStageHandler;
-import org.eocencle.magnet.core.mapping.FilterInfo;
+import org.eocencle.magnet.core.mapping.FilterField;
 
 import java.util.List;
 
@@ -22,5 +22,5 @@ public interface SparkJoinCondition extends WorkStageHandler {
      * @Exception
      * @Description
      **/
-    DataFrame on(List<FilterInfo.FilterField> filterFields, DataFrame left, DataFrame right, String type);
+    DataFrame on(List<FilterField> filterFields, DataFrame left, DataFrame right, String type);
 }

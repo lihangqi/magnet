@@ -1,6 +1,6 @@
 package org.eocencle.magnet.xmlbuilder.builder;
 
-import org.eocencle.magnet.core.mapping.FilterInfo;
+import org.eocencle.magnet.core.mapping.FilterField;
 import org.eocencle.magnet.core.mapping.JoinInfo;
 import org.eocencle.magnet.core.util.CoreTag;
 import org.eocencle.magnet.xmlbuilder.parsing.XNode;
@@ -58,7 +58,7 @@ public class JoinBuilder implements XMLParser {
         JoinInfo joinInfo = null;
         List<XNode> ons = null;
         String tagName = null;
-        FilterInfo.FilterField onField = null;
+        FilterField onField = null;
         for (XNode node: nodes) {
             joinInfo = new JoinInfo();
             joinInfo.setId(node.getStringAttribute(XMLBuilderTag.XML_ATTR_ID));
@@ -68,7 +68,7 @@ public class JoinBuilder implements XMLParser {
             joinInfo.setRightRef(node.getStringAttribute(XMLBuilderTag.XML_ATTR_RIGHTREF));
             ons = node.evalNode(XMLBuilderTag.XML_EL_ON).getChildren();
             for (XNode on: ons) {
-                onField = new FilterInfo.FilterField();
+                onField = new FilterField();
                 tagName = on.getName().toUpperCase();
                 if (tagName.startsWith(CoreTag.FILTER_JOIN_AND)) {
                     onField.setJoin(CoreTag.FILTER_JOIN_AND);
